@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>XIERO | Professional Java &amp; Web Developer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Geist:wght@300;400;600;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#001e2c",
+                        "surface-dim": "#051424",
+                        "secondary": "#c3c5da",
+                        "on-error-container": "#ffdad6",
+                        "primary": "#8fd6ff",
+                        "on-secondary-fixed": "#171b2a",
+                        "surface-container": "#122131",
+                        "on-secondary-fixed-variant": "#434657",
+                        "inverse-on-surface": "#233143",
+                        "tertiary-container": "#7db5ff",
+                        "inverse-primary": "#00668a",
+                        "primary-fixed-dim": "#7ad0ff",
+                        "on-tertiary-container": "#004680",
+                        "on-secondary-container": "#b1b4c8",
+                        "tertiary-fixed-dim": "#a4c9ff",
+                        "outline": "#87929b",
+                        "outline-variant": "#3d4850",
+                        "primary-container": "#00bfff",
+                        "on-primary-fixed-variant": "#004c69",
+                        "secondary-fixed": "#dfe1f6",
+                        "surface-container-lowest": "#010f1f",
+                        "on-surface-variant": "#bcc8d1",
+                        "tertiary-fixed": "#d4e3ff",
+                        "surface-container-high": "#1c2b3c",
+                        "on-tertiary": "#00315d",
+                        "on-tertiary-fixed-variant": "#004883",
+                        "on-tertiary-fixed": "#001c39",
+                        "background": "#051424",
+                        "on-error": "#690005",
+                        "surface-bright": "#2c3a4c",
+                        "on-surface": "#d4e4fa",
+                        "surface-variant": "#273647",
+                        "on-secondary": "#2c303f",
+                        "surface-container-low": "#0d1c2d",
+                        "on-primary-container": "#004a65",
+                        "primary-fixed": "#c3e8ff",
+                        "on-primary": "#003549",
+                        "surface": "#051424",
+                        "secondary-container": "#434657",
+                        "on-background": "#d4e4fa",
+                        "inverse-surface": "#d4e4fa",
+                        "error-container": "#93000a",
+                        "secondary-fixed-dim": "#c3c5da",
+                        "surface-tint": "#7ad0ff",
+                        "tertiary": "#b1d0ff",
+                        "surface-container-highest": "#273647",
+                        "error": "#ffb4ab"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "unit": "4px",
+                        "stack-gap": "32px",
+                        "margin-safe": "5vw"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Geist"],
+                        "body-sm": ["Inter"],
+                        "display-lg": ["Geist"],
+                        "code-label": ["JetBrains Mono"],
+                        "display-lg-mobile": ["Geist"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #051424;
+            scroll-behavior: smooth;
+            cursor: none;
+        }
+        
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 191, 255, 0.15);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 191, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 191, 255, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .typing-effect::after {
+            content: '|';
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #custom-cursor {
+            width: 12px;
+            height: 12px;
+            background: #00bfff;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow: 0 0 15px #00bfff, 0 0 30px #00bfff;
+            transition: transform 0.1s ease;
+        }
+
+        .logo-carousel-track {
+            display: flex;
+            width: calc(250px * 18);
+            animation: scroll 40s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-250px * 9)); }
+        }
+
+        .preloader {
+            position: fixed;
+            inset: 0;
+            background: #010f1f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+        }
+
+        .progress-bar-fill {
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Form Error States */
+        input:invalid:not(:placeholder-shown),
+        textarea:invalid:not(:placeholder-shown) {
+            border-color: #ffb4ab !important;
+            box-shadow: 0 0 10px rgba(255, 180, 171, 0.3);
+        }
+        
+        .input-error {
+            border-color: #ffb4ab !important;
+            box-shadow: 0 0 15px rgba(255, 180, 171, 0.5) !important;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+<!-- Loading Screen -->
+<div class="preloader" id="preloader">
+<div class="flex flex-col items-center gap-4">
+<div class="text-primary font-code-label tracking-[0.3em] text-code-label animate-pulse">INITIALIZING XIERO_SYSTEMS...</div>
+<div class="w-64 h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container shadow-[0_0_10px_#00bfff]" id="loader-bar" style="width: 0%"></div>
+</div>
+</div>
+</div>
+<!-- Custom Cursor -->
+<div id="custom-cursor"></div>
+<!-- Full Screen Background Shader -->
+<div class="fixed inset-0 z-[-1]">
+
+</div>
+<!-- Scroll Progress -->
+<div class="fixed top-0 left-0 h-1 bg-primary-container z-[70] transition-all duration-100" id="scroll-progress" style="width: 0%"></div>
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/10 backdrop-blur-xl border-b border-primary/15 shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
+<div class="flex justify-between items-center px-gutter py-4 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-headline-md">terminal</span>
+<span class="text-headline-md font-headline-md font-black tracking-tighter text-primary drop-shadow-[0_0_8px_rgba(0,191,255,0.8)]">XIERO</span>
+</div>
+<!-- Desktop Nav -->
+<div class="hidden md:flex items-center gap-8">
+<a class="text-primary font-bold hover:text-primary transition-all duration-300 font-body-sm text-body-sm" href="#home">Home</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-all duration-300 font-body-sm text-body-sm" href="#about">About</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-all duration-300 font-body-sm text-body-sm" href="#skills">Skills</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-all duration-300 font-body-sm text-body-sm" href="#projects">Work</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-all duration-300 font-body-sm text-body-sm" href="#contact">Contact</a>
+</div>
+<button class="md:hidden text-primary" id="menu-toggle">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</nav>
+<!-- Mobile Drawer -->
+<div class="fixed inset-y-0 right-0 w-64 z-[60] bg-surface-dim/95 backdrop-blur-2xl border-l border-primary/20 transform translate-x-full transition-transform duration-300 md:hidden" id="mobile-drawer">
+<div class="flex flex-col p-6 space-y-4">
+<div class="flex justify-between items-center mb-8">
+<span class="font-code-label text-code-label uppercase tracking-widest text-primary">XIERO_SYSTEMS</span>
+<button class="text-on-surface-variant" id="close-menu">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<a class="bg-primary-container text-on-primary-container rounded-xl flex items-center gap-4 px-4 py-3 font-body-lg text-body-lg" href="#home">
+<span class="material-symbols-outlined">home</span> Home
+            </a>
+<a class="text-on-surface-variant hover:text-primary flex items-center gap-4 px-4 py-3 font-body-lg text-body-lg" href="#about">
+<span class="material-symbols-outlined">person</span> About
+            </a>
+<a class="text-on-surface-variant hover:text-primary flex items-center gap-4 px-4 py-3 font-body-lg text-body-lg" href="#skills">
+<span class="material-symbols-outlined">code</span> Skills
+            </a>
+<a class="text-on-surface-variant hover:text-primary flex items-center gap-4 px-4 py-3 font-body-lg text-body-lg" href="#projects">
+<span class="material-symbols-outlined">rocket_launch</span> Work
+            </a>
+<a class="text-on-surface-variant hover:text-primary flex items-center gap-4 px-4 py-3 font-body-lg text-body-lg" href="#contact">
+<span class="material-symbols-outlined">mail</span> Contact
+            </a>
+</div>
+</div>
+<!-- Hero Section -->
+<section class="min-h-screen flex items-center pt-20 px-margin-safe max-w-container-max mx-auto overflow-hidden" id="home">
+<div class="grid md:grid-cols-2 gap-12 items-center w-full">
+<div class="space-y-8">
+<div class="inline-flex items-center gap-2 px-4 py-1 glass-card rounded-full border-primary/30">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-primary font-code-label text-code-label uppercase tracking-widest">Available for Hire</span>
+</div>
+<h1 class="text-on-surface font-display-lg text-display-lg-mobile md:text-display-lg">
+                    Hello, I'm <span class="text-primary-container drop-shadow-[0_0_15px_rgba(0,191,255,0.4)]">XIERO</span>
+</h1>
+<div class="h-12">
+<p class="typing-effect text-primary font-headline-md text-headline-md opacity-80" id="typing-target"></p>
+</div>
+<p class="text-on-surface-variant font-body-lg text-body-lg max-w-xl leading-relaxed">
+                    Saya adalah developer yang berfokus pada Java Development, Minecraft Server Development, Website Development, dan berbagai solusi digital modern.
+                </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<a class="px-8 py-4 bg-transparent text-primary-container border border-primary-container rounded-lg font-bold tracking-wide hover:shadow-[0_0_30px_rgba(0,191,255,0.5)] hover:bg-primary-container hover:text-on-primary-container transition-all duration-300 uppercase text-sm" href="#contact">
+                        Contact Me
+                    </a>
+<a class="px-8 py-4 glass-card border-white/10 text-white rounded-lg font-bold tracking-wide hover:bg-white/5 transition-all duration-300 uppercase text-sm" href="#projects">
+                        View Projects
+                    </a>
+</div>
+</div>
+<div class="relative flex justify-center items-center h-[500px]">
+<!-- Floating Avatar -->
+<div class="absolute inset-0 flex items-center justify-center animate-[pulse_8s_ease-in-out_infinite]">
+<div class="w-64 h-64 md:w-80 md:h-80 rounded-full border-2 border-primary/20 flex items-center justify-center relative">
+<div class="absolute inset-[-20px] rounded-full border border-primary/10 animate-[spin_10s_linear_infinite]"></div>
+<div class="absolute inset-[-40px] rounded-full border border-primary/5 animate-[spin_15s_linear_infinite_reverse]"></div>
+<div class="w-56 h-56 md:w-72 md:h-72 glass-card rounded-full flex items-center justify-center overflow-hidden drop-shadow-[0_0_15px_rgba(0,191,255,0.4)]">
+<img alt="XIERO Profile" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6nE2-VO56PQA1FoyeP8seiBaARECsW22RGmPSjq5pvIcN8tqdmraA6wFcBkfEhqYkNHyRux2adH0QR6Hmd0AAuTxl_VcdChpRxVIhlh2Qwrf6Itu7_6qMt4kTQXgIYG-0PvTAWbV0FLdz0el3TG-sqhQ1OttAWHEB5qoiMacTU5wdcHschScIJVD5_ObtbqvvJPwWupIRgz0Q-WmUFp-3_xuI0cIfuO8HzEFE6CAMSGkv2yd0PJaoOt9BrLLUMIk_-tz2H6q0Jmir"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- About Section -->
+<section class="py-stack-gap px-margin-safe max-w-container-max mx-auto" id="about">
+<div class="scroll-reveal">
+<div class="grid md:grid-cols-2 gap-16 items-center">
+<div class="space-y-8">
+<h2 class="text-on-surface font-headline-md text-headline-md border-l-4 border-primary pl-6">Tentang Saya</h2>
+<p class="text-on-surface-variant font-body-lg text-body-lg leading-relaxed">
+                        Saya adalah seorang developer yang memiliki pengalaman dalam pengembangan server Minecraft, plugin Java, website modern, dan berbagai solusi digital. Saya selalu fokus pada performa, kualitas kode, dan pengalaman pengguna terbaik.
+                    </p>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<div class="glass-card p-6 rounded-xl text-center">
+<div class="text-primary font-display-lg text-4xl mb-2">5+</div>
+<div class="text-on-surface-variant font-body-sm text-body-sm uppercase tracking-widest">Experience</div>
+</div>
+<div class="glass-card p-6 rounded-xl text-center">
+<div class="text-primary font-display-lg text-4xl mb-2">1000+</div>
+<div class="text-on-surface-variant font-body-sm text-body-sm uppercase tracking-widest">Projects</div>
+</div>
+<div class="glass-card p-6 rounded-xl text-center">
+<div class="text-primary font-display-lg text-4xl mb-2">1000+</div>
+<div class="text-on-surface-variant font-body-sm text-body-sm uppercase tracking-widest">Users</div>
+</div>
+</div>
+</div>
+<div class="glass-card p-2 rounded-2xl overflow-hidden aspect-video relative group">
+<img alt="Developer Workspace" class="w-full h-full object-cover rounded-xl opacity-60 group-hover:opacity-100 transition-opacity duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYQ_iYYppl0nnVFc_qkRQWgJX_zuiyskTi5D6jpFIQ8Rp2-SsQ6aROMB4o5Lp14zRQ1PEywTxYt9XDIFT1pwKvX8ShnTyEVu9VgwfFR1eddcK-jHjMIipgOA7HxmCQPIoljtQ4fVg58GyC86fqGXoDnBVXskEUxaBS9iQ8UEKoku4ff0y1-FU7tzB3mhl-kCBIY8FKMNyy_ZUrx_kMDqFaSA2IS_haT82CtPd2jHeVFtKNHdjgKr_RWqCy9VD5EKC7JyDjwUFOAKVH"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Skills Section -->
+<section class="py-stack-gap px-margin-safe max-w-container-max mx-auto" id="skills">
+<div class="scroll-reveal space-y-12">
+<div class="text-center space-y-4">
+<h2 class="text-on-surface font-headline-md text-headline-md">Tech Arsenal</h2>
+<div class="w-24 h-1 bg-primary mx-auto rounded-full"></div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+<!-- Skill Card -->
+<div class="glass-card p-6 rounded-xl space-y-4 group">
+<div class="flex justify-between items-center">
+<span class="text-on-surface font-code-label text-code-label">Java</span>
+<span class="text-primary font-code-label text-code-label">90%</span>
+</div>
+<div class="h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="progress-bar-fill h-full bg-primary shadow-[0_0_10px_#00bfff]" style="width: 90%"></div>
+</div>
+</div>
+<!-- Skill Card -->
+<div class="glass-card p-6 rounded-xl space-y-4 group">
+<div class="flex justify-between items-center">
+<span class="text-on-surface font-code-label text-code-label">Minecraft API</span>
+<span class="text-primary font-code-label text-code-label">95%</span>
+</div>
+<div class="h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="progress-bar-fill h-full bg-primary shadow-[0_0_10px_#00bfff]" style="width: 95%"></div>
+</div>
+</div>
+<!-- Skill Card -->
+<div class="glass-card p-6 rounded-xl space-y-4 group">
+<div class="flex justify-between items-center">
+<span class="text-on-surface font-code-label text-code-label">Web Frontend</span>
+<span class="text-primary font-code-label text-code-label">85%</span>
+</div>
+<div class="h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="progress-bar-fill h-full bg-primary shadow-[0_0_10px_#00bfff]" style="width: 85%"></div>
+</div>
+</div>
+<!-- Skill Card -->
+<div class="glass-card p-6 rounded-xl space-y-4 group">
+<div class="flex justify-between items-center">
+<span class="text-on-surface font-code-label text-code-label">Linux Server</span>
+<span class="text-primary font-code-label text-code-label">80%</span>
+</div>
+<div class="h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="progress-bar-fill h-full bg-primary shadow-[0_0_10px_#00bfff]" style="width: 80%"></div>
+</div>
+</div>
+<!-- More Skills labels -->
+<div class="col-span-full grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4">
+<div class="glass-card py-3 px-4 rounded-lg text-center font-code-label text-xs text-on-surface-variant hover:text-primary">MySQL</div>
+<div class="glass-card py-3 px-4 rounded-lg text-center font-code-label text-xs text-on-surface-variant hover:text-primary">PaperMC</div>
+<div class="glass-card py-3 px-4 rounded-lg text-center font-code-label text-xs text-on-surface-variant hover:text-primary">Spigot</div>
+<div class="glass-card py-3 px-4 rounded-lg text-center font-code-label text-xs text-on-surface-variant hover:text-primary">Velocity</div>
+<div class="glass-card py-3 px-4 rounded-lg text-center font-code-label text-xs text-on-surface-variant hover:text-primary">Git &amp; GitHub</div>
+<div class="glass-card py-3 px-4 rounded-lg text-center font-code-label text-xs text-on-surface-variant hover:text-primary">VPS Admin</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Services Section -->
+<section class="py-stack-gap px-margin-safe max-w-container-max mx-auto" id="services">
+<div class="scroll-reveal space-y-12">
+<h2 class="text-on-surface font-headline-md text-headline-md text-center">Layanan Profesional</h2>
+<div class="grid md:grid-cols-3 gap-8">
+<div class="glass-card p-8 rounded-2xl border-primary/20 flex flex-col gap-6 hover:scale-[1.02]">
+<div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">sports_esports</span>
+</div>
+<h3 class="text-on-surface font-headline-md text-2xl">Minecraft Dev</h3>
+<p class="text-on-surface-variant font-body-sm text-body-sm">
+                        Pengembangan plugin kustom, setup server profesional, sistem ekonomi yang seimbang, dan optimasi performa tinggi.
+                    </p>
+<ul class="text-on-surface-variant font-body-sm text-body-sm space-y-2 mt-auto">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> Custom Plugin</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> Economy Setup</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> Bug Fixing</li>
+</ul>
+</div>
+<div class="glass-card p-8 rounded-2xl border-primary/20 flex flex-col gap-6 hover:scale-[1.02]">
+<div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">language</span>
+</div>
+<h3 class="text-on-surface font-headline-md text-2xl">Web Development</h3>
+<p class="text-on-surface-variant font-body-sm text-body-sm">
+                        Pembuatan landing page modern, website portfolio, dan dashboard interaktif dengan fokus pada responsivitas.
+                    </p>
+<ul class="text-on-surface-variant font-body-sm text-body-sm space-y-2 mt-auto">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> Responsive Design</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> Modern UI/UX</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> Fast Performance</li>
+</ul>
+</div>
+<div class="glass-card p-8 rounded-2xl border-primary/20 flex flex-col gap-6 hover:scale-[1.02]">
+<div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">dns</span>
+</div>
+<h3 class="text-on-surface font-headline-md text-2xl">Server Management</h3>
+<p class="text-on-surface-variant font-body-sm text-body-sm">
+                        Manajemen infrastruktur VPS, optimasi Linux, konfigurasi keamanan, dan maintenance server berkelanjutan.
+                    </p>
+<ul class="text-on-surface-variant font-body-sm text-body-sm space-y-2 mt-auto">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> VPS Setup</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> Security Hardening</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> Backups</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Projects Section -->
+<section class="py-stack-gap px-margin-safe max-w-container-max mx-auto" id="projects">
+<div class="scroll-reveal space-y-12">
+<h2 class="text-on-surface font-headline-md text-headline-md">Featured Works</h2>
+<div class="grid md:grid-cols-2 gap-8">
+<!-- Project 1 -->
+<div class="group relative glass-card rounded-2xl overflow-hidden">
+<img alt="MMS Network" class="w-full h-[400px] object-cover transition-transform duration-700 group-hover:scale-110 opacity-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwXloCcYVumz3rYO1tTi79-ZMfFvUE3ZQhVH3rl2JXdfHlak8K-4vlP2fgrYPE9c3PRSfKjpUcEcaqRrf0tybVE5k4QFzHk1BfzR7vMHOuIUQ8PdB7qzLpR6y_WI_TBuSxq0XmHsLFlmkhEsOiqgFCFI_mV0uyolyg42cmgxggf6IJHdqmztkhUoXnJpheLifbbOLynHEO_B0W35NcTdGJVaZ_Qq7sKtq8Fkp7j2RmcF1DqbQnbc-sCl9yu37uQQmlHlVcmZfaztVn"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dim via-surface-dim/40 to-transparent p-8 flex flex-col justify-end">
+<h4 class="text-primary font-code-label text-code-label uppercase tracking-widest mb-2">Network Setup</h4>
+<h3 class="text-on-surface font-headline-md text-3xl mb-4">MMS Network</h3>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-6 max-w-md">Multi-mode Minecraft network with custom economy and global rank system.</p>
+<div class="flex gap-4">
+<span class="px-3 py-1 glass-card text-[10px] uppercase font-bold text-primary">PaperMC</span>
+<span class="px-3 py-1 glass-card text-[10px] uppercase font-bold text-primary">Velocity</span>
+<span class="px-3 py-1 glass-card text-[10px] uppercase font-bold text-primary">PocketmineMP</span>
+<span class="px-3 py-1 glass-card text-[10px] uppercase font-bold text-primary">WaterdogPE</span>
+<span class="px-3 py-1 glass-card text-[10px] uppercase font-bold text-primary">Vanilla</span>
+</div>
+</div>
+</div>
+<!-- Project 2 -->
+<div class="group relative glass-card rounded-2xl overflow-hidden">
+<img alt="Lifesteal SMP" class="w-full h-[400px] object-cover transition-transform duration-700 group-hover:scale-110 opacity-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDURzCtYCcPxhMBUjx-Fqd-jX0elPNw-LcAvnvJx1wGqguQn1O3yFXGjHr4jnZLq2oGMds0Ep6caq-JLzC9cv-5IqEGs2eYtnSdBSWj0LNC1sEpKHvOPX7wHfP9XiVmMcjXFfmRI6vyT30VpDjIFB8Lp20l6AAbB-CYhLKwWzJ1uS2fI25oQAjX5NEw-9uWgB9YLYo_nVzE9EG0oRtiVACtFfYidpKMaVjiF0NV_tu_A5TPAoBjTSngE_lXSFUePME-3h5B8rOLAi0p"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dim via-surface-dim/40 to-transparent p-8 flex flex-col justify-end">
+<h4 class="text-primary font-code-label text-code-label uppercase tracking-widest mb-2">Game System</h4>
+<h3 class="text-on-surface font-headline-md text-3xl mb-4">Lifesteal SMP</h3>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-6 max-w-md">Hardcore survival system with custom heart mechanics and combat balances.</p>
+<div class="flex gap-4">
+<span class="px-3 py-1 glass-card text-[10px] uppercase font-bold text-primary">Java</span>
+<span class="px-3 py-1 glass-card text-[10px] uppercase font-bold text-primary">MySQL</span>
+</div>
+</div>
+</div>
+<!-- Project 3 -->
+<div class="group relative glass-card rounded-2xl overflow-hidden">
+<img alt="Custom Crates" class="w-full h-[400px] object-cover transition-transform duration-700 group-hover:scale-110 opacity-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzQvQmpd4zV88BzGRoruE-3Mk_V4yDQu50g6tzfCw368rY77hM45Mkz2WCRE-nP860l_MpkagdiosRIUHVxY4yIbPp2x2pJ_TXjefFhnLOCCVX5sx27YdDOGfR_EDPRdW9eDLuVe9kngw8bUEx8okYlMnunH9oMW66j_qDomGZQbVi51mGrCCEI8igzXi8P9zsuw9Njz9UHecHETMzaG8IeqfGjIhEQaDAI8HUMcCndWVHhHDAx8hkbUDd6FtHUm_8kURj28MiCu1M"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dim via-surface-dim/40 to-transparent p-8 flex flex-col justify-end">
+<h4 class="text-primary font-code-label text-code-label uppercase tracking-widest mb-2">Plugin Dev</h4>
+<h3 class="text-on-surface font-headline-md text-3xl mb-4">Custom Crates System</h3>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-6 max-w-md">Advanced reward system with high-end animations and configurable odds.</p>
+<div class="flex gap-4">
+<span class="px-3 py-1 glass-card text-[10px] uppercase font-bold text-primary">Java</span>
+<span class="px-3 py-1 glass-card text-[10px] uppercase font-bold text-primary">NBT API</span>
+</div>
+</div>
+</div>
+<!-- Project 4 -->
+<div class="group relative glass-card rounded-2xl overflow-hidden">
+<img alt="Portfolio Site" class="w-full h-[400px] object-cover transition-transform duration-700 group-hover:scale-110 opacity-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChTsVwYwJFHRggl_tsJmuKV43j1rOOw88OxOpkJaWhQrobcxFULx2b0t0pvNoC24sPuJF9L3mBM8QIhsVKVLqxYMnSjsKmwvZVx_hPwU6V6pscYG3tOzQWDmVrHT8driboX1Tpr0XJ2xON-d3dPoOjp9cr-PA9D9DXB3z9oD69CXJR9T62FgvCaiMcGzP2vkem7WgbZkf2FjsZDGG2dIBF_RJQI2BKcoxYZpjFEh1I62anrUQ6f3RiIngvXPLNCTLmSarj3yFcmjrf"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dim via-surface-dim/40 to-transparent p-8 flex flex-col justify-end">
+<h4 class="text-primary font-code-label text-code-label uppercase tracking-widest mb-2">Web Design</h4>
+<h3 class="text-on-surface font-headline-md text-3xl mb-4">XIERO Portfolio</h3>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-6 max-w-md">This high-performance portfolio website with custom animations and shaders.</p>
+<div class="flex gap-4">
+<span class="px-3 py-1 glass-card text-[10px] uppercase font-bold text-primary">HTML/CSS</span>
+<span class="px-3 py-1 glass-card text-[10px] uppercase font-bold text-primary">JS</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Tech Stack Carousel -->
+<section class="py-12 border-y border-primary/10 overflow-hidden">
+<div class="logo-carousel-track">
+<!-- Items -->
+<div class="w-[250px] flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100">
+<span class="text-primary font-black text-2xl">JAVA</span>
+</div>
+<div class="w-[250px] flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100">
+<span class="text-primary font-black text-2xl">HTML5</span>
+</div>
+<div class="w-[250px] flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100">
+<span class="text-primary font-black text-2xl">CSS3</span>
+</div>
+<div class="w-[250px] flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100">
+<span class="text-primary font-black text-2xl">JS</span>
+</div>
+<div class="w-[250px] flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100">
+<span class="text-primary font-black text-2xl">MYSQL</span>
+</div>
+<div class="w-[250px] flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100">
+<span class="text-primary font-black text-2xl">LINUX</span>
+</div>
+<div class="w-[250px] flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100">
+<span class="text-primary font-black text-2xl">GITHUB</span>
+</div>
+<div class="w-[250px] flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100">
+<span class="text-primary font-black text-2xl">PAPERMC</span>
+</div>
+<div class="w-[250px] flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100">
+<span class="text-primary font-black text-2xl">SPIGOT</span>
+</div>
+<!-- Second Set -->
+<div class="w-[250px] flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100">
+<span class="text-primary font-black text-2xl">JAVA</span>
+</div>
+<div class="w-[250px] flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100">
+<span class="text-primary font-black text-2xl">HTML5</span>
+</div>
+<div class="w-[250px] flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100">
+<span class="text-primary font-black text-2xl">CSS3</span>
+</div>
+<div class="w-[250px] flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100">
+<span class="text-primary font-black text-2xl">JS</span>
+</div>
+<div class="w-[250px] flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100">
+<span class="text-primary font-black text-2xl">MYSQL</span>
+</div>
+<div class="w-[250px] flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100">
+<span class="text-primary font-black text-2xl">LINUX</span>
+</div>
+<div class="w-[250px] flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100">
+<span class="text-primary font-black text-2xl">GITHUB</span>
+</div>
+<div class="w-[250px] flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100">
+<span class="text-primary font-black text-2xl">PAPERMC</span>
+</div>
+<div class="w-[250px] flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100">
+<span class="text-primary font-black text-2xl">SPIGOT</span>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="py-stack-gap px-margin-safe max-w-container-max mx-auto" id="contact">
+<div class="scroll-reveal grid lg:grid-cols-2 gap-16">
+<div class="space-y-8">
+<h2 class="text-on-surface font-headline-md text-headline-md">Mari Bekerjasama</h2>
+<p class="text-on-surface-variant font-body-lg text-body-lg leading-relaxed">
+                    Punya ide project yang ingin diwujudkan? Saya siap membantu anda membangun solusi digital yang tangguh dan modern. Hubungi saya melalui formulir atau media sosial berikut.
+                </p>
+<div class="space-y-4">
+<a class="flex items-center gap-4 p-4 glass-card rounded-xl hover:border-primary group" href="https://wa.me/6282183365089" target="_blank">
+<div class="w-12 h-12 rounded-lg bg-green-500/20 flex items-center justify-center text-green-400">
+<span class="material-symbols-outlined">chat</span>
+</div>
+<div>
+<div class="text-on-surface font-bold">WhatsApp</div>
+<div class="text-on-surface-variant text-sm">+62 821-8336-5089</div>
+</div>
+</a>
+<a class="flex items-center gap-4 p-4 glass-card rounded-xl hover:border-primary group" href="https://instagram.com/itsmexiero_" target="_blank">
+<div class="w-12 h-12 rounded-lg bg-pink-500/20 flex items-center justify-center text-pink-400">
+<span class="material-symbols-outlined">photo_camera</span>
+</div>
+<div>
+<div class="text-on-surface font-bold">Instagram</div>
+<div class="text-on-surface-variant text-sm">@itsmexiero_</div>
+</div>
+</a>
+</div>
+</div>
+<div class="glass-card p-8 rounded-3xl relative overflow-hidden">
+<form class="space-y-6 relative z-10" id="contact-form" novalidate="">
+<div>
+<label class="block text-primary font-code-label text-code-label mb-2" for="name">NAMA LENGKAP</label>
+<input class="w-full bg-transparent border-b-2 border-outline-variant focus:border-primary-container outline-none py-3 text-on-surface transition-all duration-300 placeholder:opacity-30" id="name" name="name" placeholder="John Doe" required="" type="text"/>
+<span class="text-[10px] text-error mt-1 hidden" id="error-name">Nama wajib diisi</span>
+</div>
+<div>
+<label class="block text-primary font-code-label text-code-label mb-2" for="email">EMAIL</label>
+<input class="w-full bg-transparent border-b-2 border-outline-variant focus:border-primary-container outline-none py-3 text-on-surface transition-all duration-300 placeholder:opacity-30" id="email" name="email" placeholder="email@example.com" required="" type="email"/>
+<span class="text-[10px] text-error mt-1 hidden" id="error-email">Email tidak valid</span>
+</div>
+<div>
+<label class="block text-primary font-code-label text-code-label mb-2" for="message">PESAN</label>
+<textarea class="w-full bg-transparent border-b-2 border-outline-variant focus:border-primary-container outline-none py-3 text-on-surface transition-all duration-300 resize-none placeholder:opacity-30" id="message" name="message" placeholder="Tuliskan ide atau pertanyaan Anda di sini..." required="" rows="4"></textarea>
+<span class="text-[10px] text-error mt-1 hidden" id="error-message">Pesan wajib diisi</span>
+</div>
+<button class="w-full py-4 glass-card border-primary/40 text-primary font-bold tracking-widest uppercase hover:bg-primary-container hover:text-on-primary-container transition-all duration-300 group flex items-center justify-center gap-2" id="submit-btn" type="submit">
+<span id="btn-text">Send Message</span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" id="btn-icon">send</span>
+</button>
+</form>
+<!-- Recent Messages Insight (LocalStorage Demo) -->
+<div class="mt-8 pt-8 border-t border-primary/10 hidden" id="recent-messages-container">
+<h4 class="text-primary font-code-label text-[10px] uppercase tracking-widest mb-4">Sent History (Local)</h4>
+<div class="space-y-3" id="messages-list"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="w-full py-12 border-t border-outline-variant/30 bg-surface-container-lowest">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-safe max-w-container-max mx-auto gap-stack-gap">
+<div class="flex items-center gap-4">
+<span class="text-headline-md font-headline-md text-primary drop-shadow-[0_0_5px_rgba(0,191,255,0.4)]">XIERO</span>
+<span class="text-on-surface-variant text-sm border-l border-outline-variant/50 pl-4">Developer XIERO © 2026 • Crafted with Java, HTML, CSS &amp; Passion</span>
+</div>
+<div class="flex gap-8">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors" href="#">Connect</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors" href="#">Experience</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors" href="#">Source</a>
+</div>
+</div>
+</footer>
+<!-- Back to Top -->
+<button class="fixed bottom-8 right-8 w-12 h-12 glass-card rounded-full flex items-center justify-center text-primary opacity-0 translate-y-10 transition-all duration-300 z-[80]" id="back-to-top">
+<span class="material-symbols-outlined">arrow_upward</span>
+</button>
+<script>
+        // Custom Cursor
+        const cursor = document.getElementById('custom-cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        document.querySelectorAll('a, button, input, textarea').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.style.transform = 'scale(2)');
+            el.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
+        });
+
+        // Preloader Logic
+        window.addEventListener('load', () => {
+            const bar = document.getElementById('loader-bar');
+            let width = 0;
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        document.getElementById('preloader').style.opacity = '0';
+                        setTimeout(() => {
+                            document.getElementById('preloader').remove();
+                            startTyping();
+                            renderHistory();
+                        }, 500);
+                    }, 500);
+                } else {
+                    width += 5;
+                    bar.style.width = width + '%';
+                }
+            }, 50);
+        });
+
+        // Typing Effect
+        const typingTarget = document.getElementById('typing-target');
+        const phrases = ["Professional Java & Web Developer", "Minecraft Systems Architect", "Web Solutions Expert"];
+        let phraseIdx = 0;
+        let charIdx = 0;
+        let isDeleting = false;
+
+        function startTyping() {
+            if (!typingTarget) return;
+            const currentPhrase = phrases[phraseIdx];
+            if (isDeleting) {
+                typingTarget.textContent = currentPhrase.substring(0, charIdx - 1);
+                charIdx--;
+            } else {
+                typingTarget.textContent = currentPhrase.substring(0, charIdx + 1);
+                charIdx++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIdx === currentPhrase.length) {
+                isDeleting = true;
+                typeSpeed = 2000;
+            } else if (isDeleting && charIdx === 0) {
+                isDeleting = false;
+                phraseIdx = (phraseIdx + 1) % phrases.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(startTyping, typeSpeed);
+        }
+
+        // Scroll Progress & Reveal
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            const prog = document.getElementById('scroll-progress');
+            if (prog) prog.style.width = scrolled + "%";
+
+            const btt = document.getElementById('back-to-top');
+            if (winScroll > 500) {
+                btt.classList.remove('opacity-0', 'translate-y-10');
+            } else {
+                btt.classList.add('opacity-0', 'translate-y-10');
+            }
+        });
+
+        document.getElementById('back-to-top').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Intersection Observer for Scroll Reveals
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const closeMenu = document.getElementById('close-menu');
+        const drawer = document.getElementById('mobile-drawer');
+
+        if (menuToggle && closeMenu && drawer) {
+            menuToggle.addEventListener('click', () => {
+                drawer.style.transform = 'translateX(0)';
+            });
+
+            closeMenu.addEventListener('click', () => {
+                drawer.style.transform = 'translateX(100%)';
+            });
+
+            document.querySelectorAll('#mobile-drawer a').forEach(link => {
+                link.addEventListener('click', () => {
+                    drawer.style.transform = 'translateX(100%)';
+                });
+            });
+        }
+
+        /**
+         * MESSAGING SYSTEM INTEGRATION
+         */
+        const contactForm = document.getElementById('contact-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const btnText = document.getElementById('btn-text');
+        const btnIcon = document.getElementById('btn-icon');
+
+        // Render sent messages from localStorage
+        function renderHistory() {
+            const messages = JSON.parse(localStorage.getItem('XIERO_MESSAGES') || '[]');
+            const container = document.getElementById('recent-messages-container');
+            const list = document.getElementById('messages-list');
+            
+            if (messages.length > 0) {
+                container.classList.remove('hidden');
+                list.innerHTML = messages.slice(-3).reverse().map(msg => `
+                    <div class="p-3 glass-card rounded-lg border-primary/5 text-[11px]">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-primary font-bold">${msg.name}</span>
+                            <span class="text-on-surface-variant opacity-50">${new Date(msg.timestamp).toLocaleTimeString()}</span>
+                        </div>
+                        <div class="text-on-surface-variant truncate">${msg.message}</div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Client-side Validation
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const messageInput = document.getElementById('message');
+            let isValid = true;
+
+            // Reset UI
+            [nameInput, emailInput, messageInput].forEach(el => {
+                el.classList.remove('input-error');
+                const err = document.getElementById(`error-${el.id}`);
+                if (err) err.classList.add('hidden');
+            });
+
+            if (!nameInput.value.trim()) {
+                nameInput.classList.add('input-error');
+                document.getElementById('error-name').classList.remove('hidden');
+                isValid = false;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailInput.value)) {
+                emailInput.classList.add('input-error');
+                document.getElementById('error-email').classList.remove('hidden');
+                isValid = false;
+            }
+
+            if (!messageInput.value.trim()) {
+                messageInput.classList.add('input-error');
+                document.getElementById('error-message').classList.remove('hidden');
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            // Start "Sending" State
+            const originalText = btnText.innerText;
+            const originalIcon = btnIcon.innerHTML;
+            
+            submitBtn.disabled = true;
+            btnText.innerText = 'Sending...';
+            btnIcon.innerHTML = '<div class="spinner"></div>';
+
+            // Data Preparation
+            const formData = {
+                name: nameInput.value,
+                email: emailInput.value,
+                message: messageInput.value,
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                /**
+                 * ONLINE INTEGRATION PLACEHOLDER
+                 * To use actual online messaging, you can uncomment this fetch logic:
+                 * 
+                 * await fetch('https://formspree.io/f/your-form-id', {
+                 *     method: 'POST',
+                 *     headers: { 'Content-Type': 'application/json' },
+                 *     body: JSON.stringify(formData)
+                 * });
+                 */
+
+                // Simulate backend delay
+                await new Promise(resolve => setTimeout(resolve, 1500));
+
+                // OFFLINE LOGIC (LocalStorage persistence)
+                const currentMessages = JSON.parse(localStorage.getItem('XIERO_MESSAGES') || '[]');
+                currentMessages.push(formData);
+                localStorage.setItem('XIERO_MESSAGES', JSON.stringify(currentMessages));
+                console.log('XIERO_SYSTEM: Message safely stored in local database.', formData);
+
+                // Feedback State
+                btnText.innerText = 'Message Sent Successfully!';
+                btnIcon.innerHTML = 'check_circle';
+                submitBtn.style.borderColor = '#00ff7f';
+                submitBtn.style.color = '#00ff7f';
+                
+                renderHistory();
+                contactForm.reset();
+
+                // Reset button after success
+                setTimeout(() => {
+                    btnText.innerText = originalText;
+                    btnIcon.innerHTML = originalIcon;
+                    submitBtn.disabled = false;
+                    submitBtn.style.borderColor = '';
+                    submitBtn.style.color = '';
+                }, 3000);
+
+            } catch (error) {
+                console.error('XIERO_SYSTEM_ERROR:', error);
+                btnText.innerText = 'Error! Try Again';
+                btnIcon.innerHTML = 'error';
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body></html>
